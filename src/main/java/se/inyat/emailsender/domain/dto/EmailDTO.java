@@ -1,5 +1,6 @@
 package se.inyat.emailsender.domain.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import lombok.*;
 
 public class EmailDTO {
     @NotBlank(message = "To field cannot be blank.")
+    @Email(message = "To field should be a vaild email.")
     private String to;
 
     @NotBlank(message = "Subject field cannot be blank.")
