@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @Getter
 @Configuration
-
 @PropertySource(value = {"classpath:email.properties"})
 public class EmailProperties {
     @Value("${spring.mail.host}")

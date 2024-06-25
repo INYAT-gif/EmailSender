@@ -17,32 +17,33 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-      StringBuilder errorDetails = new StringBuilder();
-      ex.getBindingResult().getFieldErrors().forEach(fieldError -> {
-          errorDetails.append(fieldError.getField());
-          errorDetails.append(":");
-          errorDetails.append(fieldError.getDefaultMessage());
-          errorDetails.append(" ");
-      });
-      ErrorDTO dto = new ErrorDTO(HttpStatus.BAD_REQUEST.value(), errorDetails.toString());
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
+        StringBuilder errorDetails = new StringBuilder();
+        ex.getBindingResult().getFieldErrors().forEach(fieldError -> {
+            errorDetails.append(fieldError.getField());
+            errorDetails.append(": ");
+            errorDetails.append(fieldError.getDefaultMessage());
+            errorDetails.append(" ");
+        });
+        ErrorDTO dto = new ErrorDTO(HttpStatus.BAD_REQUEST.value(), errorDetails.toString());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
     }
 
     @ExceptionHandler({EmailException.class, IllegalArgumentException.class})
-    public ResponseEntity<ErrorDTO> handleEmailException(EmailException e){
+    public ResponseEntity<ErrorDTO> handleEmailException(Exception e) {
         ErrorDTO dto = new ErrorDTO(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
     }
-    //if any other expecption that we have not catched the add last catch
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(Exception e){
+    public ResponseEntity<ErrorDTO> handleGlobalException(Exception e) {
         String uuid = UUID.randomUUID().toString();
+        System.out.println("--------------------");
         System.out.println("ERROR ID: " + uuid);
         e.printStackTrace();
-        System.out.println("---------------------");
+        System.out.println("--------------------");
 
         ErrorDTO dto = new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Call the support team. " + uuid);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(dto);
     }
+
 }

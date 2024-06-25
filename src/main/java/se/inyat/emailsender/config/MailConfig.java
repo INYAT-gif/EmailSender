@@ -8,9 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class MailConfig {
-
     //how to access the getter method from EmailProperties.java?
-
     private final EmailProperties emailProperties;
 
     @Autowired
