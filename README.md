@@ -1,2 +1,2 @@
-https://storage.googleapis.com/a1aa/image/8bab26ce-0913-4ad9-9d90-6b8b587a50a0.jpeg
+![image](https://github.com/user-attachments/assets/79cf29bb-2166-4383-a0e2-1d0884c706eb)
 # EmailSender
